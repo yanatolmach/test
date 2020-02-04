@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace EPAMTestTasks
@@ -9,7 +9,7 @@ namespace EPAMTestTasks
 		{
 			int[] mas = new int[] { 3, 7, 4, 8, 5, 4, 6, 3, 2, 5, 1, 6, 4, 1, 9, 7, 8, 3, 7, 0, 3, 2, 1, 6, 7, 4, 0, 6, 9, 9, 9, 9, 9 };
 
-			mas = Sort(mas);
+			Sort(mas);
 
 			Console.WriteLine("Задание 1.Сортировка (пузырьком)");
 			foreach (var x in mas)
@@ -22,14 +22,19 @@ namespace EPAMTestTasks
 			Console.WriteLine($"Задание 2.Поиск {IsValueExist(mas, 6)}");
 
 			Console.WriteLine($"Задание 3.Строки");
-			foreach (var x in OnceTimeWord("aa bb a b aa b c cc d dd d"))
+			string s = "aa bb a b aa b c cc d dd d";
+			foreach (var x in OnceTimeWord(s))
 			{
 				Console.Write($"{x} ");
 			}
 
 			Console.WriteLine();
 
-			Console.WriteLine($"Задание 4.Факториал {Factorial(5)}");
+
+			int factorialN = 6;
+			Console.WriteLine($"Задание 4.Факториал {factorialN} = {Factorial(factorialN)}");
+
+			Console.WriteLine($"Задание 5.Правильная скобочная последовательность {BracketSequence("(({[(}])))")}");
 
 		}
 
@@ -128,6 +133,39 @@ namespace EPAMTestTasks
 			}
 
 			return fac;
+		}
+
+		//Задание 5.Правильная скобочная последовательность*
+		public static bool BracketSequence(string s)
+		{
+			int bracket1 = 0;//круглая скобка
+			int bracket2 = 0;//фигурная скобка
+			int bracket3 = 0;//квадратная скобка
+
+			bool isCorrect = true;
+
+			for (int i = 0; i < s.Length; i++)
+			{
+				if (s[i] == '(') bracket1++;
+				else if (s[i] == ')') bracket1--;
+				else if (s[i] == '{') bracket2++;
+				else if (s[i] == '}') bracket2--;
+				else if (s[i] == '[') bracket3++;
+				else if (s[i] == ']') bracket3--;
+
+				if (bracket1 < 0 || bracket2 < 0 || bracket3 < 0)
+				{
+					isCorrect = false;
+					break;
+				}
+			}
+
+			if (bracket1 != 0 || bracket2 != 0 || bracket3 != 0)
+			{
+				isCorrect = false;
+			}
+
+			return isCorrect;
 		}
 	}
 }
